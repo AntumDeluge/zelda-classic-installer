@@ -1,0 +1,19 @@
+Source: zelda-classic-installer
+Section: games
+Priority: optional
+Maintainer: Jordan Irwin <antumdeluge@gmail.com>
+Build-Depends: debhelper (>=9), curl, tar
+Standards-Version: 3.9.6
+Homepage: http://www.zeldaclassic.com/
+
+Package: zelda-classic-installer
+Architecture: i386 amd64
+Depends: ${misc:Depends}, libxxf86vm1:i386, libxcursor1:i386, libxpm4:i386, libxext6:i386, libx11-6:i386, libasound2:i386, libc6:i386
+Description: Retro 2D adventure game
+ Zelda Classic is a tribute to Nintendo's The Legend of Zelda.
+ It has been developed into an exact replica of the NES version
+ that we all know and love. Beyond that, Zelda Classic allows
+ the development of new quests that can use either the
+ traditional graphics or enhanced graphics, as well as new
+ enemies, items, and challenges.
+

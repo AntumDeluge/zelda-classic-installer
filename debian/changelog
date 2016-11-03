@@ -1,0 +1,5 @@
+zelda-classic-installer (2.50.1-1) xenial; urgency=low
+
+  * Initial debianized version
+
+ -- Jordan Irwin <antumdeluge@gmail.com>  Thu, 03 Nov 2016 03:03:09 -0700
