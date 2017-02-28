@@ -19,28 +19,9 @@ MKDIR = mkdir -vp
 INSTALL = install -vm 0755
 INSTALL_DATA = install -vm 0644
 UNINSTALL = rm -vf
-CP = cp -vR
-LN = ln -vfs
-RM = rm -vf
 
 
 all:
-
-download:
-	@echo "\nSetting up Zelda Classic"; \
-	if [ ! -f "/tmp/$(FILE)" ]; then \
-		echo "Downloading file: $(FILE)"; \
-		cd "/tmp"; \
-		curl -O "http://www.zeldaclassic.com/files/$(FILE)"; \
-	else \
-		echo "Found previously cached file: $(FILE)"; \
-	fi; \
-
-extract: download
-	@echo "\nExctacting archive contents ..."; \
-	cd "/tmp"; \
-	tar -vxzf "$(FILE)"; \
-	chmod 0755 "Zelda Classic"; \
 
 install:
 	@echo "\nCreating required directory tree ..."; \
