@@ -42,29 +42,28 @@ extract: download
 	tar -vxzf "$(FILE)"; \
 	chmod 0755 "Zelda Classic"; \
 
-install: extract
-	@target="$(DESTDIR)$(prefix)"; \
-	data_dir="$${target}/share/$(PACKAGE)"; \
-	if [ -d "$${data_dir}" ]; then \
-		echo "\nRemoving previous installation files ..."; \
-		find "$${data_dir}" -type f -print -delete; \
-		find "$${data_dir}" -type d -empty -print -delete; \
+install:
+	@echo "\nCreating required directory tree ..."; \
+	if [ ! -d "$(BINDIR)" ]; then \
+		$(MKDIR) "$(BINDIR)"; \
 	fi; \
-	cd "/tmp"; \
-	echo "\nInstalling Zelda Classic ..."; \
-	if [ ! -d "$${target}/share" ]; then \
-		$(MKDIR) "$${target}/share"; \
+	if [ ! -d "$(MENUDIR)" ]; then \
+		$(MKDIR) "$(MENUDIR)"; \
 	fi; \
-	$(CP) "Zelda Classic" "$${data_dir}"; \
-	if [ ! -d "$${target}/$(BINDIR)" ]; then \
-		$(MKDIR) "$${target}/$(BINDIR)"; \
+	if [ ! -d "$(PIXMAPDIR)" ]; then \
+		$(MKDIR) "$(PIXMAPDIR)"; \
 	fi; \
-	$(LN) "$(prefix)/share/$(PACKAGE)/zlaunch-l" "$${target}/$(BINDIR)/zelda-classic-launcher"; \
+	echo "\nInstalling launcher script ..."; \
+	$(INSTALL) "data/$(SCRIPT)" "$(BINDIR)"; \
+	echo "\nInstalling menu pixmap ..."; \
+	$(INSTALL_DATA) "data/$(PIXMAP)" "$(PIXMAPDIR)"; \
+	echo "\nInstalling menu launcher ..."; \
+	$(INSTALL_DATA) "data/$(MENU)" "$(MENUDIR)"; \
 
 uninstall:
-	@echo "\nUninstalling Zelda Classic ..."; \
-	target="$(DESTDIR)$(prefix)"; \
-	$(RM) "$${target}/$(BINDIR)/zelda-classic-launcher"; \
-	find "$${target}/share/$(PACKAGE)" -type f -print -delete; \
-	find "$${target}/share/$(PACKAGE)" -type d -empty -print -delete; \
-
+	@echo "\nUninstalling menu launcher ..."; \
+	$(UNINSTALL) "$(MENUDIR)/$(MENU)"; \
+	echo "\nUninstalling menu pixmap ..."; \
+	$(UNINSTALL) "$(PIXMAPDIR)/$(PIXMAP)"; \
+	echo "\nUninstalling launcher script ..."; \
+	$(UNINSTALL) "$(BINDIR)/$(SCRIPT)"; \
