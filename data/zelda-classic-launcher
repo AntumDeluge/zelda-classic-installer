@@ -1,0 +1,64 @@
+#!/bin/bash
+
+SOURCE_PARENT=/opt/games
+SOURCE=${SOURCE_PARENT}/zelda-classic
+PARENT=${HOME}/.local/share
+TARGET=${PARENT}/zelda-classic
+LAUNCHER=zlaunch-l
+
+if [ "$1" = "download" ]; then
+	if [ ! -w "${SOURCE_PARENT}" ]; then
+		echo "ERROR: No write access to \"${SOURCE_PARENT}\""
+		exit 1
+	
+	fi
+	
+	if [ -e "${SOURCE}" ]; then
+		read -p "Remove old source? (${SOURCE}) [y/N]: " RMSOURCE
+		
+		case "${RMSOURCE}" in
+			[yY][eE][sS]|[yY])
+				rm -vrf "${SOURCE}"
+				;;
+			
+			*)
+				echo "Aborting ..."
+				exit 0
+				;;
+		
+		esac
+	
+	fi
+	
+	echo "Downloading game ..."
+	exit 0
+
+fi
+
+if [ ! -d "${TARGET}" ]; then
+	if [ -d "${SOURCE}" ]; then
+		if [ ! -d "${PARENT}" ]; then
+			mkdir -p "${PARENT}";
+		elif [ ! -d "${TARGET}" ]; then
+			echo "Copying game to local directory ...";
+			cp -vR "${SOURCE}" "${TARGET}";
+		fi
+	else
+		echo "Error: Source directory does not exist: ${SOURCE}";
+		echo "Try running this script with super user privileges (sudo) with the command \"download\""
+		exit 1;
+	fi
+fi
+
+if [ ! -x "${TARGET}/${LAUNCHER}" ]; then
+	if [ -f "${TARGET}/${LAUNCHER}" ]; then
+		chmod +x "${TARGET}/${LAUNCHER}";
+	else
+		echo "Error: Launcher does not exist: ${TARGET}/${LAUNCHER}";
+		exit 1;
+	fi
+fi
+
+cd "${TARGET}";
+./${LAUNCHER} $@;
+
