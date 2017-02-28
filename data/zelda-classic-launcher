@@ -30,7 +30,7 @@ if [ "$1" = "download" ]; then
 	
 	fi
 	
-	echo "Downloading game ..."
+	echo "Downloading game binaries ..."
 	exit 0
 
 fi
