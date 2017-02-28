@@ -6,6 +6,11 @@ PARENT=${HOME}/.local/share
 TARGET=${PARENT}/zelda-classic
 LAUNCHER=zlaunch-l
 
+# Remote file info
+VERSION=2-50-1
+ARCHIVE=zc-$(VERSION)-linux.tar.gz
+REMOTE_FILE=http://www.zeldaclassic.com/files/$(ARCHIVE)
+
 if [ "$1" = "download" ]; then
 	if [ ! -w "${SOURCE_PARENT}" ]; then
 		echo "ERROR: No write access to \"${SOURCE_PARENT}\""
