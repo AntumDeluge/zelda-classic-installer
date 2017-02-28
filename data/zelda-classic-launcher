@@ -65,16 +65,46 @@ if [ "$1" = "setup" ]; then
 	fi
 	
 	# Extract binary files to source directory
-	echo "Extracting game files ..."
+	echo "\nExtracting game files ..."
+	tar -vxzf "${ARCHIVE}"
+	
+	# Copy files to system directory
+	echo -e "\nInstalling game files to system ..."
+	mkdir "${SOURCE}"
+	
+	cd "Zelda Classic"
+	
+	for F in $(ls); do
+		cp -vR "${F}" "${SOURCE}"
+	done
 	
 	# Return to previous directory
 	cd ${HERE}
 	
 	# Downloaded & extracted successfully
 	exit 0
-
 fi
 
+
+# System clean
+if [ "$1" == "clean-system" ]; then
+	echo "Removing system game files ..."
+	rm -vRf "${SOURCE}"
+	
+	exit 0
+fi
+
+
+# Local clean
+if [ "$1" == "clean-local" ]; then
+	echo "Removing local game files ..."
+	rm -vRf "${TARGET}"
+	
+	exit 0
+fi
+
+
+# Local setup
 if [ ! -d "${TARGET}" ]; then
 	if [ -d "${SOURCE}" ]; then
 		if [ ! -d "${LOCAL}" ]; then
