@@ -34,12 +34,22 @@ install:
 	if [ ! -d "$(PIXMAPDIR)" ]; then \
 		$(MKDIR) "$(PIXMAPDIR)"; \
 	fi; \
+	\
 	echo "\nInstalling launcher script ..."; \
 	$(INSTALL) "data/$(SCRIPT)" "$(BINDIR)"; \
 	echo "\nInstalling menu pixmap ..."; \
 	$(INSTALL_DATA) "data/$(PIXMAP)" "$(PIXMAPDIR)"; \
 	echo "\nInstalling menu launcher ..."; \
 	$(INSTALL_DATA) "data/$(MENU)" "$(MENUDIR)"; \
+	\
+	echo "\nChecking installation ..."; \
+	if [ -e "$(BINDIR)/$(SCRIPT)" ]; then \
+		echo "Executable script found: $(BINDIR)/$(SCRIPT)"; \
+		echo "Running dowload script ..."; \
+		"$(BINDIR)/$(SCRIPT)" download; \
+	else \
+		echo "ERROR: Could not find executable script: $(BINDIR)/$(SCRIPT)"; \
+	fi; \
 
 uninstall:
 	@echo "\nUninstalling menu launcher ..."; \
