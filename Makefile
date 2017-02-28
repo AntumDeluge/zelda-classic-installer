@@ -45,8 +45,8 @@ install:
 	echo "\nChecking installation ..."; \
 	if [ -e "$(BINDIR)/$(SCRIPT)" ]; then \
 		echo "Executable script found: $(BINDIR)/$(SCRIPT)"; \
-		echo "Running dowload script ..."; \
-		"$(BINDIR)/$(SCRIPT)" download; \
+		echo "Running setup ..."; \
+		"$(BINDIR)/$(SCRIPT)" setup; \
 	else \
 		echo "ERROR: Could not find executable script: $(BINDIR)/$(SCRIPT)"; \
 	fi; \
