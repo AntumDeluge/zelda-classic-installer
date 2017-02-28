@@ -1,15 +1,22 @@
 #!/bin/bash
 
+
+# System installation info
 SOURCE_PARENT=/opt/games
 SOURCE=${SOURCE_PARENT}/zelda-classic
+
+# Local installation info
 PARENT=${HOME}/.local/share
 TARGET=${PARENT}/zelda-classic
-LAUNCHER=zlaunch-l
 
 # Remote file info
 VERSION=2-50-2
 ARCHIVE=zc-$(VERSION)-linux.tar.gz
 REMOTE_FILE=http://www.zeldaclassic.com/files/$(ARCHIVE)
+
+# Execution info
+LAUNCHER=zlaunch-l
+
 
 if [ "$1" = "download" ]; then
 	if [ ! -w "${SOURCE_PARENT}" ]; then
