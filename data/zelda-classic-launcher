@@ -22,30 +22,53 @@ LAUNCHER=zlaunch-l
 
 
 if [ "$1" = "download" ]; then
-	if [ ! -w "${SOURCE_PARENT}" ]; then
-		echo "ERROR: No write access to \"${SOURCE_PARENT}\""
-		exit 1
+	# Save current directory
+	HERE=$(pwd)
 	
+	# Change to temp directory
+	cd /tmp
+	
+	# Cache binary archive
+	if [ ! -f "/tmp/${ARCHIVE}" ]; then
+		echo -e "\nDownloading game binaries ..."
+		
+		# Download the binary archive
+		curl -O "${REMOTE_STATIC}"
+	else
+		echo -e "\nPreviously cached archive found"
 	fi
 	
-	if [ -e "${SOURCE}" ]; then
-		read -p "Remove old source? (${SOURCE}) [y/N]: " RMSOURCE
+	# Make sure cached archive exists
+	if [ ! -f "/tmp/${ARCHIVE}" ]; then
+		echo -e "\nERROR: Could not download binary archive"
+		exit 1
+	fi
+	
+	# Check for write access & pre-existing binary data files
+	if [ ! -w "${SOURCE_PARENT}" ]; then
+		echo -e "\nERROR: No write access to \"${SOURCE_PARENT}\""
+		exit 1
+	elif [ -e "${SOURCE}" ]; then
+		read -p "\nFound existing game files, remove? (${SOURCE}) [y/N]: " RMSOURCE
 		
 		case "${RMSOURCE}" in
 			[yY][eE][sS]|[yY])
 				rm -vrf "${SOURCE}"
 				;;
-			
 			*)
 				echo "Aborting ..."
 				exit 0
 				;;
-		
 		esac
-	
 	fi
 	
-	echo "Downloading game binaries ..."
+	# Extract binary files to source directory
+	echo "Extracting game files ..."
+	
+	# Return to previous directory
+	cd ${HERE}
+	
+	# Downloaded & extracted successfully
 	exit 0
 
 fi
