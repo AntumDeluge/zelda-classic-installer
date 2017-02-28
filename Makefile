@@ -2,10 +2,10 @@ NAME = zelda-classic
 SCRIPT = $(NAME)-launcher
 MENU = $(SCRIPT).desktop
 PIXMAP = $(NAME).png
+VERSION = 2-50-2
+PACKAGE = $(NAME)-installer
 
 # DEPRECATED: These variables are unused
-PACKAGE = $(NAME)-installer
-VERSION = 2-50-1
 FILE = zc-$(VERSION)-linux.tar.gz
 
 prefix = /usr/local
@@ -58,3 +58,6 @@ uninstall:
 	$(UNINSTALL) "$(PIXMAPDIR)/$(PIXMAP)"; \
 	echo "\nUninstalling launcher script ..."; \
 	$(UNINSTALL) "$(BINDIR)/$(SCRIPT)"; \
+
+dist:
+	@tar -vcJ --exclude="debian" --exclude="*.tar.*" -f "$(PACKAGE).tar.xz" *; \
