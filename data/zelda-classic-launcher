@@ -10,9 +10,12 @@ LOCAL=${HOME}/.local/share
 TARGET=${LOCAL}/zelda-classic
 
 # Remote file info
+URL=http://www.zeldaclassic.com/
+DLID_LINUX=100
 VERSION=2-50-2
-ARCHIVE=zc-$(VERSION)-linux.tar.gz
-REMOTE_FILE=http://www.zeldaclassic.com/files/$(ARCHIVE)
+ARCHIVE=zc-${VERSION}-linux.tar.gz
+REMOTE=${URL}download/${DLID_LINUX}
+REMOTE_STATIC=${URL}files/${ARCHIVE}
 
 # Execution info
 LAUNCHER=zlaunch-l
