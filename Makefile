@@ -1,13 +1,28 @@
-prefix = /usr/local
-PACKAGE = zelda-classic
+NAME = zelda-classic
+SCRIPT = $(NAME)-launcher
+MENU = $(SCRIPT).desktop
+PIXMAP = $(NAME).png
+
+# DEPRECATED: These variables are unused
+PACKAGE = $(NAME)-installer
 VERSION = 2-50-1
 FILE = zc-$(VERSION)-linux.tar.gz
-BINDIR = games
+
+prefix = /usr/local
+TARGET = $(DESTDIR)$(prefix)
+BINDIR = $(TARGET)/games
+DATAROOT = $(TARGET)/share
+MENUDIR = $(DATAROOT)/applications
+PIXMAPDIR = $(DATAROOT)/pixmaps
 
 MKDIR = mkdir -vp
+INSTALL = install -vm 0755
+INSTALL_DATA = install -vm 0644
+UNINSTALL = rm -vf
 CP = cp -vR
 LN = ln -vfs
 RM = rm -vf
+
 
 all:
 
