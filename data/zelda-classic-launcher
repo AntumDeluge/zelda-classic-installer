@@ -21,7 +21,8 @@ REMOTE_STATIC=${URL}files/${ARCHIVE}
 LAUNCHER=zlaunch-l
 
 
-if [ "$1" = "download" ]; then
+# System setup
+if [ "$1" = "setup" ]; then
 	# Save current directory
 	HERE=$(pwd)
 	
@@ -79,12 +80,12 @@ if [ ! -d "${TARGET}" ]; then
 		if [ ! -d "${LOCAL}" ]; then
 			mkdir -p "${LOCAL}";
 		elif [ ! -d "${TARGET}" ]; then
-			echo "Copying game to local directory ...";
+			echo -e "\nCopying game to local directory ...";
 			cp -vR "${SOURCE}" "${TARGET}";
 		fi
 	else
-		echo "Error: Source directory does not exist: ${SOURCE}";
-		echo "Try running this script with super user privileges (sudo) with the command \"download\""
+		echo -e "\nError: Source directory does not exist: ${SOURCE}";
+		echo "Try running this script with super user privileges (sudo) with the command \"setup\""
 		exit 1;
 	fi
 fi
@@ -93,7 +94,7 @@ if [ ! -x "${TARGET}/${LAUNCHER}" ]; then
 	if [ -f "${TARGET}/${LAUNCHER}" ]; then
 		chmod +x "${TARGET}/${LAUNCHER}";
 	else
-		echo "Error: Launcher does not exist: ${TARGET}/${LAUNCHER}";
+		echo -e "\nError: Launcher does not exist: ${TARGET}/${LAUNCHER}";
 		exit 1;
 	fi
 fi
