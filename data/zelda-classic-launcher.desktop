@@ -1,0 +1,12 @@
+[Desktop Entry]
+Version=1.0
+Encoding=UTF-8
+Name=Zelda Classic Launcher
+Comment=Remake of the classic NES game The Legend of Zelda
+Type=Application
+Terminal=false
+StartupNotify=true
+Exec=zelda-classic-launcher
+Icon=zelda-classic
+Categories=Game;
+
