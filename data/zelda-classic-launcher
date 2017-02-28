@@ -30,12 +30,13 @@ if [ "$1" = "download" ]; then
 	
 	# Cache binary archive
 	if [ ! -f "/tmp/${ARCHIVE}" ]; then
-		echo -e "\nDownloading game binaries ..."
+		printf "\nDownloading game binaries "
+		echo -e "(v${VERSION}) ..." | sed -e 's/-/./g'
 		
 		# Download the binary archive
 		curl -O "${REMOTE_STATIC}"
 	else
-		echo -e "\nPreviously cached archive found"
+		echo -e "\nPreviously cached archive found: /tmp/${ARCHIVE}"
 	fi
 	
 	# Make sure cached archive exists
