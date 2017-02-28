@@ -6,8 +6,8 @@ SOURCE_PARENT=/opt/games
 SOURCE=${SOURCE_PARENT}/zelda-classic
 
 # Local installation info
-PARENT=${HOME}/.local/share
-TARGET=${PARENT}/zelda-classic
+LOCAL=${HOME}/.local/share
+TARGET=${LOCAL}/zelda-classic
 
 # Remote file info
 VERSION=2-50-2
@@ -49,8 +49,8 @@ fi
 
 if [ ! -d "${TARGET}" ]; then
 	if [ -d "${SOURCE}" ]; then
-		if [ ! -d "${PARENT}" ]; then
-			mkdir -p "${PARENT}";
+		if [ ! -d "${LOCAL}" ]; then
+			mkdir -p "${LOCAL}";
 		elif [ ! -d "${TARGET}" ]; then
 			echo "Copying game to local directory ...";
 			cp -vR "${SOURCE}" "${TARGET}";
