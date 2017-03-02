@@ -1,9 +1,12 @@
 NAME = zelda-classic
 SCRIPT = $(NAME)-launcher
-MENU = $(SCRIPT).desktop
 PIXMAP = $(NAME).png
 VERSION = 2-50-2
 PACKAGE = $(NAME)-installer
+
+MENUS = \
+	$(NAME).desktop \
+	$(SCRIPT).desktop
 
 # DEPRECATED: These variables are unused
 FILE = zc-$(VERSION)-linux.tar.gz
@@ -39,8 +42,10 @@ install:
 	$(INSTALL) "data/$(SCRIPT)" "$(BINDIR)"; \
 	echo "\nInstalling menu pixmap ..."; \
 	$(INSTALL_DATA) "data/$(PIXMAP)" "$(PIXMAPDIR)"; \
-	echo "\nInstalling menu launcher ..."; \
-	$(INSTALL_DATA) "data/$(MENU)" "$(MENUDIR)"; \
+	echo "\nInstalling menu launchers ..."; \
+	for M in $(MENUS); do \
+		$(INSTALL_DATA) "data/$${M}" "$(MENUDIR)"; \
+	done; \
 	\
 	echo "\nChecking installation ..."; \
 	if [ -e "$(BINDIR)/$(SCRIPT)" ]; then \
@@ -52,8 +57,10 @@ install:
 	fi; \
 
 uninstall:
-	@echo "\nUninstalling menu launcher ..."; \
-	$(UNINSTALL) "$(MENUDIR)/$(MENU)"; \
+	@echo "\nUninstalling menu launchers ..."; \
+	for M in $(MENUS); do \
+		$(UNINSTALL) "$(MENUDIR)/$${M}"; \
+	done; \
 	echo "\nUninstalling menu pixmap ..."; \
 	$(UNINSTALL) "$(PIXMAPDIR)/$(PIXMAP)"; \
 	echo "\nUninstalling launcher script ..."; \
