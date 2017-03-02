@@ -17,9 +17,14 @@ ARCHIVE=zc-${VERSION}-linux.tar.gz
 REMOTE=${URL}download/${DLID_LINUX}
 REMOTE_STATIC=${URL}files/${ARCHIVE}
 
+
 # Execution info
 LAUNCHER=zlaunch-l
 
+if [ "$1" == "nolauncher" ]; then
+	LAUNCHER=zelda-l
+	ARGS="-windowed"
+fi
 
 # System setup
 if [ "$1" = "setup" ]; then
@@ -130,6 +135,6 @@ if [ ! -x "${TARGET}/${LAUNCHER}" ]; then
 fi
 
 cd "${TARGET}";
-./${LAUNCHER} $@;
+./${LAUNCHER} ${ARGS} $@;
 
 # FIXME: Backup save data after play
